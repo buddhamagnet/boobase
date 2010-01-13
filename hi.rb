@@ -9,6 +9,6 @@ get '/' do
 end
 
 get '/say/*/to/*' do
-  'Hey #{params['splat'][0]} I say #{params['splat'][1]'
+  'Hey ' + params['splat'][0] + ' I say ' + params['splat'][1]
 end
 
