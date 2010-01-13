@@ -8,7 +8,7 @@ get '/' do
   erb :index
 end
 
-get '/say/*/to/*' do
-  erb :say
+get '/shorten' do
+  params.inspect
 end
 
