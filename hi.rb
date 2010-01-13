@@ -12,7 +12,4 @@ get '/' do
   erb :index
 end
 
-get '/shorten' do
-  params.inspect
-end
 
