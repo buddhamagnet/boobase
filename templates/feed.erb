@@ -1,5 +1,5 @@
 <%= @feed.title %>
   <% for item in @feed.entries %>
-    <%= item.title %>
-    <%= item.content %>
+    <p><%= item.properties %></p>
+    <p><%= item.title %> by <%= item.author %></p>
   <% end %>

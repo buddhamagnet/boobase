@@ -6,8 +6,17 @@
   <title>Welcome to <%= @title %></title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css" /> 
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= @api_key %>" type="text/javascript"></script>
+  <script type="text/javascript">
+  function initialize() {
+    if (GBrowserIsCompatible()) {
+      var map = new GMap2(document.getElementById("map"));
+      map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+      map.setUIToDefault();
+      }
+  }
+  </script>
   </head>
-  <body>
+  <body onload="initialize()" onunload="GUnload()">
     <div id="page">
       <div id="sidebar">
         <ul id="sidebar-items">  
@@ -50,7 +59,7 @@
 		  original idea using Sinatra, the lean Ruby microframework. OK, that may not mean much to many of you, but it means we can be agile,
 		  lightweight and focus on making the map as clean and responsive as possible. The tool will be tag-driven and soon we'll give you
 		  some embedding options so you can plug the map into your favourite mess. How sleazy.</p>
-		  <iframe width="700" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=London&amp;ie=UTF8&amp;hq=&amp;hnear=London&amp;z=14&amp;output=embed"></iframe>
+		  <div id="map" style="width: 700px;height: 600px;"></div>
           <p><%= yield %></p>
         </div>
        </div>
