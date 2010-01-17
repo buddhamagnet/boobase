@@ -36,7 +36,7 @@ get "/tag/:tag" do
   rescue Error => e
     erb :fail
   end
-  erb :index
+  erb :feed
 end
 
 
