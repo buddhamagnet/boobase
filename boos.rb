@@ -1,8 +1,10 @@
 require 'rubygems'
 require 'sinatra'
+require 'feedzirra'
 require 'erb'
 
 set :views, File.dirname(__FILE__) + '/templates'
+set :tag_url, 'http://audioboo.fm/tag/'
 
 configure :production do
   set :title, 'boobase'
@@ -25,6 +27,15 @@ before do
 end
 
 get "/" do
+  erb :index
+end
+
+get "/tag/:tag" do
+  begin
+    @feed = Feedzirra::Feed.fetch_and_parse(options.tag_url + params[:tag] + '.rss')
+  rescue Error => e
+    erb :fail
+  end
   erb :index
 end
 

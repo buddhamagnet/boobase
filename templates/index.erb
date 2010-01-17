@@ -1,1 +1,6 @@
+<%= @feed.title %>
+  <% for item in @feed.entries %>
+    <%= item.title %>
+    <%= item.content %>
+  <% end %>
 
