@@ -6,12 +6,12 @@ set :views, File.dirname(__FILE__) + '/templates'
 
 configure :production do
   set :title, 'boobase'
-  set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxSiUcEld95qrkTs5z8_UvHFkFRNsRTXjDRbtcsTcZNhltcE7Jrr0aKJog'
+  set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxSBKIDUMqBSdWuz6-uVhYP5NoAnMRSiBpF9QkcfjG5N5LEc3b483p5igA'
 end
 
 configure :test do
   set :title, 'boostage'
-  set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxSWBiZ5gmuB-Fi-87K_EhH1x73z6BRV0VBKo7BFKBRxR9UmNf-vTU-KzA'
+  set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxRPbVWv-urirlRr1aZdrBxQATLMMxRdGUaA96cxmpl6IYSp25QzK57VRw'
 end
 
 configure :development do
