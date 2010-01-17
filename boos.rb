@@ -6,7 +6,7 @@ set :views, File.dirname(__FILE__) + '/templates'
 
 configure :production do
   set :title, 'boobase'
-  set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxSBKIDUMqBSdWuz6-uVhYP5NoAnMRSiBpF9QkcfjG5N5LEc3b483p5igA'
+  set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxRDvOLbrWiHJ3CicabozJttxm0fcRSHTAN9PKMpSmb-x2_M7kgXsE2-3w'
 end
 
 configure :test do
