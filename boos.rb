@@ -31,6 +31,7 @@ get "/" do
 end
 
 get "/tag/:tag" do
+  Feedzirra::Feed.add_common_feed_entry_element("geoss:point", :as => :location)
   begin
     @feed = Feedzirra::Feed.fetch_and_parse(options.tag_url + params[:tag] + '.rss')
   rescue Error => e
