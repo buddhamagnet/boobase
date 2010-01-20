@@ -25,6 +25,7 @@ before do
   @year = Time.now.year
   @title = options.title
   @api_key = options.api_key
+  @version = '2.0'
 end
 
 get "/" do
