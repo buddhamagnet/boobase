@@ -4,6 +4,7 @@ require 'feedzirra'
 require 'erb'
 
 set :views, File.dirname(__FILE__) + '/templates'
+set :default_url, 'http://audioboo.fm/tag/boobase'
 set :tag_url, 'http://audioboo.fm/tag/'
 
 configure :production do
@@ -27,17 +28,39 @@ before do
 end
 
 get "/" do
+  @feed = get_feed(options.default_url)
   erb :index
 end
 
 get "/tag/:tag" do
-  Feedzirra::Feed.add_common_feed_entry_element("geoss:point", :as => :location)
-  begin
-    @feed = Feedzirra::Feed.fetch_and_parse(options.tag_url + params[:tag] + '.rss')
-  rescue Error => e
-    erb :fail
-  end
+  @feed = get_feed(options.tag_url + params[:tag])
   erb :feed
 end
+
+post "/tag" do
+  @feed = get_feed(options.tag_url + params[:tag])
+  erb :feed
+end
+
+helpers do
+    
+    def get_feed(feed)
+      geotagged_boos = []
+      Feedzirra::Feed.add_common_feed_entry_element("georss:point", :as => :location)
+      begin
+        feed = Feedzirra::Feed.fetch_and_parse(feed + '.rss')
+      rescue Error => e
+        erb :fail
+      end
+      for item in feed.entries
+        unless !item.location
+          geotagged_boos << item
+        end
+      end
+      geotagged_boos
+    end
+  
+end
+
 
 

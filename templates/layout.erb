@@ -5,13 +5,60 @@
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <title>Welcome to <%= @title %></title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css" /> 
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/js/boobase.js"></script>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= @api_key %>" type="text/javascript"></script>
   <script type="text/javascript">
   function initialize() {
     if (GBrowserIsCompatible()) {
       var map = new GMap2(document.getElementById("map"));
-      map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+      map.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), 15);
       map.setUIToDefault();
+      <% i = 0 %>
+      <% for item in @feed.entries %>
+	    <% unless !item.location %>
+	     var point = new GLatLng(<%= item.location.to_s.split(' ')[0] %>, <%= item.location.to_s.split(' ')[1] %>);
+	     var marker<%= i %> = new GMarker(point);
+		 map.addOverlay(marker<%= i %>);
+		 GEvent.addListener(marker<%= i %>, "click", function() {
+		  marker<%= i %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
+		});
+	    <% end %>
+	    <% i = i + 1 %>
+	  <% end %>
+	
+	  var global_map = new GMap2(document.getElementById("global_map"));
+      global_map.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), 3);
+      global_map.setUIToDefault();
+      <% j = 100 %>
+      <% for item in @feed.entries %>
+	    <% unless !item.location %>
+	     var point = new GLatLng(<%= item.location.to_s.split(' ')[0] %>, <%= item.location.to_s.split(' ')[1] %>);
+	     var marker<%= j %> = new GMarker(point);
+		 global_map.addOverlay(marker<%= j %>);
+		 GEvent.addListener(marker<%= j %>, "click", function() {
+		  marker<%= j %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object>");
+		});
+	    <% end %>
+	  <% j = j + 1 %>
+	  <% end %>
+	
+	  var world_map = new GMap2(document.getElementById("world_map"));
+      world_map.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), 1);
+      world_map.setUIToDefault();
+      <% k = 200 %>
+      <% for item in @feed.entries %>
+	    <% unless !item.location %>
+	     var point = new GLatLng(<%= item.location.to_s.split(' ')[0] %>, <%= item.location.to_s.split(' ')[1] %>);
+	     var marker<%= k %> = new GMarker(point);
+		 world_map.addOverlay(marker<%= k %>);
+		 GEvent.addListener(marker<%= k %>, "click", function() {
+		  marker<%= k %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object>");
+		});
+	    <% end %>
+	  <% k = k + 1 %>
+	  <% end %>
       }
   }
   </script>
@@ -21,9 +68,14 @@
       <div id="sidebar">
         <ul id="sidebar-items">  
           <li>
-            <h3>SEARCH</h3>
+            <h3>SEARCH BY TAG</h3>
             <ul class="links">
-              <li><a href="#">...</a></li>
+              <li>
+	            <form action="/tag" method="POST">
+		          <input type="text" name="tag" id="tag" />
+		          <input type="submit" value="GO FIND EM!" />
+		        </form>
+		      </li>
             </ul>
           </li>
           <li>
@@ -40,14 +92,48 @@
 				<param name="allowFullScreen" value="false" />
 				<param name="allowScriptAccess" value="always" />
 				<param name="salign" value="TL" />
-				<param name="FlashVars" value="size=playlist&amp;playerWidth=250&amp;playerHeight=300&amp;rssURL=http://audioboo.fm/tag/boobase.atom" /> 
+				<param name="FlashVars" value="size=playlist&amp;playerWidth=250&amp;playerHeight=300&amp;rssURL=http://audioboo.fm/tag/<%= params[:tag] || 'audioboo' %>.atom" /> 
 		     </object>
             </ul>
           </li>
+          <h3>TWITTER</h3>
+		<script src="http://widgets.twimg.com/j/2/widget.js"></script><script>
+		new TWTR.Widget({
+		  version: 2,
+		  type: 'search',
+		  search: '#<%= params[:tag] || "audioboo" %>',
+		  interval: 6000,
+		  title: '<%= params[:tag] || "audioboo" %> on',
+		  subject: 'TWITTER',
+		  width: 250,
+		  height: 300,
+		  theme: {
+		    shell: {
+		      background: '#8ec1da',
+		      color: '#ffffff'
+		    },
+		    tweets: {
+		      background: '#ffffff',
+		      color: '#444444',
+		      links: '#1985b5'
+		    }
+		  },
+		  features: {
+		    scrollbar: false,
+		    loop: true,
+		    live: true,
+		    hashtags: true,
+		    timestamp: true,
+		    avatars: true,
+		    behavior: 'default'
+		  }
+		}).render().start();
+
+		</script>
 		  <li>
             <h3>EMBED ME</h3>
             <ul class="links">
-              <li><a href="#">...</a></li>
+              <li>EMBEDS COMING SOON</li>
             </ul>
           </li>
         </ul>
@@ -59,11 +145,16 @@
 		  original idea using Sinatra, the lean Ruby microframework. OK, that may not mean much to many of you, but it means we can be agile,
 		  lightweight and focus on making the map as clean and responsive as possible. The tool will be tag-driven and soon we'll give you
 		  some embedding options so you can plug the map into your favourite mess. How sleazy.</p>
+		  <h2 id="toggle_map">toggle local map</h2>
 		  <div id="map" style="width: 700px;height: 600px;"></div>
+		  <h2 id="toggle_global_map">toggle national map</h2>
+		  <div id="global_map" style="width: 700px;height: 600px;"></div>
+		  <h2 id="toggle_world_map">toggle world map</h2>
+		  <div id="world_map" style="width: 700px;height: 300px;"></div>
           <p><%= yield %></p>
         </div>
        </div>
-      <div id="footer">&copy; <%= @year %> <a href="http://buddhamag.net" target="_blank">buddhamagnet</a></div>
+      <div id="footer">&copy; <%= @year %> <a href="http://buddhamag.net" target="_blank"> buddhamagnet</a> - built on <a href="http://www.sinatrarb.com/" target="_blank">sinatra</a></div>
     </div>
   </body>
 </html>

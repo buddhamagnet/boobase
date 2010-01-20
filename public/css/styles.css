@@ -38,7 +38,7 @@
     padding: 25px;
     padding-left: 10px;
     width: 700px;
-    height: 800px;
+    height: 1900px;
   }
   
   #sidebar {
@@ -48,6 +48,9 @@
 
   #footer {
     clear: both;
+    margin-top: 10px;
+    padding-top: 10px;
+    font-size: 0.8em;
   }
   
 
@@ -168,4 +171,15 @@
   }
   #sidebar ul.links li {
     margin-bottom: 5px;
+  }
+
+  #map, #global_map {
+	border: 1px solid #ccc;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	margin-bottom: 10px;
+  }
+
+  input[type="submit"] {
+    margin-top: 10px;	
   }
