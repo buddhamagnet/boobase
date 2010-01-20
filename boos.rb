@@ -28,6 +28,10 @@ before do
   @version = '2.0'
 end
 
+not_found do
+    erb :index
+end
+
 get "/" do
   @feed = get_feed(options.default_url)
   erb :index
