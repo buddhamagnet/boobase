@@ -38,7 +38,7 @@
 	     var marker<%= j %> = new GMarker(point);
 		 global_map.addOverlay(marker<%= j %>);
 		 GEvent.addListener(marker<%= j %>, "click", function() {
-		  marker<%= j %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object>");
+		  marker<%= j %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
 		});
 	    <% end %>
 	  <% j = j + 1 %>
@@ -54,7 +54,7 @@
 	     var marker<%= k %> = new GMarker(point);
 		 world_map.addOverlay(marker<%= k %>);
 		 GEvent.addListener(marker<%= k %>, "click", function() {
-		  marker<%= k %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object>");
+		  marker<%= k %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
 		});
 	    <% end %>
 	  <% k = k + 1 %>

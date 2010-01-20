@@ -29,7 +29,7 @@ before do
 end
 
 not_found do
-    erb :index
+  erb :index
 end
 
 get "/" do
