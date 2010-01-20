@@ -92,7 +92,7 @@
 				<param name="allowFullScreen" value="false" />
 				<param name="allowScriptAccess" value="always" />
 				<param name="salign" value="TL" />
-				<param name="FlashVars" value="size=playlist&amp;playerWidth=250&amp;playerHeight=300&amp;rssURL=http://audioboo.fm/tag/<%= params[:tag] || 'audioboo' %>.atom" /> 
+				<param name="FlashVars" value="size=playlist&amp;playerWidth=250&amp;playerHeight=300&amp;rssURL=http://audioboo.fm/tag/<%= params[:tag] || 'boobase' %>.atom" /> 
 		     </object>
             </ul>
           </li>
@@ -101,9 +101,9 @@
 		new TWTR.Widget({
 		  version: 2,
 		  type: 'search',
-		  search: '#<%= params[:tag] || "audioboo" %>',
+		  search: '#<%= params[:tag] || "boobase" %>',
 		  interval: 6000,
-		  title: '<%= params[:tag] || "audioboo" %> on',
+		  title: '<%= params[:tag] || "boobase" %> on',
 		  subject: 'TWITTER',
 		  width: 250,
 		  height: 300,
