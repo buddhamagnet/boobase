@@ -12,54 +12,27 @@
   <script type="text/javascript">
   function initialize() {
     if (GBrowserIsCompatible()) {
-      var map = new GMap2(document.getElementById("map"));
-      map.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), 15);
-      map.setUIToDefault();
-      <% i = 0 %>
+	<% i = 0; mag = 15 %>
+	  <% 1.upto(3) do |map| %>
+	  	
+	  var map<%= map %> = new GMap2(document.getElementById("map<%= map %>"));
+      map<%= map %>.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), <%= mag %>);
+      map<%= map %>.setUIToDefault();
+      
       <% for item in @feed.entries %>
 	    <% unless !item.location %>
 	     var point = new GLatLng(<%= item.location.to_s.split(' ')[0] %>, <%= item.location.to_s.split(' ')[1] %>);
 	     var marker<%= i %> = new GMarker(point);
-		 map.addOverlay(marker<%= i %>);
+		 map<%= map %>.addOverlay(marker<%= i %>);
 		 GEvent.addListener(marker<%= i %>, "click", function() {
-		  marker<%= i %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
+		  marker<%= i %>.openInfoWindowHtml("<p><strong><%= item.title %></strong><br /> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
 		});
 	    <% end %>
 	    <% i = i + 1 %>
-	  <% end %>
-	
-	  var global_map = new GMap2(document.getElementById("global_map"));
-      global_map.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), 3);
-      global_map.setUIToDefault();
-      <% j = 100 %>
-      <% for item in @feed.entries %>
-	    <% unless !item.location %>
-	     var point = new GLatLng(<%= item.location.to_s.split(' ')[0] %>, <%= item.location.to_s.split(' ')[1] %>);
-	     var marker<%= j %> = new GMarker(point);
-		 global_map.addOverlay(marker<%= j %>);
-		 GEvent.addListener(marker<%= j %>, "click", function() {
-		  marker<%= j %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
-		});
 	    <% end %>
-	  <% j = j + 1 %>
-	  <% end %>
-	
-	  var world_map = new GMap2(document.getElementById("world_map"));
-      world_map.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), 1);
-      world_map.setUIToDefault();
-      <% k = 200 %>
-      <% for item in @feed.entries %>
-	    <% unless !item.location %>
-	     var point = new GLatLng(<%= item.location.to_s.split(' ')[0] %>, <%= item.location.to_s.split(' ')[1] %>);
-	     var marker<%= k %> = new GMarker(point);
-		 world_map.addOverlay(marker<%= k %>);
-		 GEvent.addListener(marker<%= k %>, "click", function() {
-		  marker<%= k %>.openInfoWindowHtml("<p><strong><%= item.title %></strong> a boo by <%= item.author %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
-		});
-	    <% end %>
-	  <% k = k + 1 %>
-	  <% end %>
-      }
+	<% mag = mag / 3 %>
+  <% end %>
+          }
   }
   </script>
   </head>
@@ -141,16 +114,16 @@
       <div id="content">
         <div id="header">
 	      <h1>Welcome to <%= @title %></h1>
-	      <p>Boobase is dead. Long live boobase. Stripped down and minimal, we have taken the heart of boobase - the map - and reworked the
-		  original idea using Sinatra, the lean Ruby microframework. OK, that may not mean much to many of you, but it means we can be agile,
-		  lightweight and focus on making the map as clean and responsive as possible. The tool will be tag-driven and soon we'll give you
-		  some embedding options so you can plug the map into your favourite mess. How sleazy.</p>
+	      <p>This is boobase version 2.0 beta. Search by tag and we'll plot matching boos on the local, national and global maps below (use the
+		  toggle links to turn them on and off). Any boos that haven't been geotagged will appear in the player to the right, and just for good
+		  measure we'll throw in some live tweets hashtagged with the same tag under that. This is the first version, so bear with us and feel
+		  free to report bugs or request features - email buddhamagnet at gmail dot com. More coming soon!</p>
 		  <h2 id="toggle_map">toggle local map</h2>
-		  <div id="map" style="width: 700px;height: 600px;"></div>
+		  <div id="map1" style="width: 700px;height: 600px;"></div>
 		  <h2 id="toggle_global_map">toggle national map</h2>
-		  <div id="global_map" style="width: 700px;height: 600px;"></div>
+		  <div id="map2" style="width: 700px;height: 600px;"></div>
 		  <h2 id="toggle_world_map">toggle world map</h2>
-		  <div id="world_map" style="width: 700px;height: 500px;"></div>
+		  <div id="map3" style="width: 700px;height: 500px;"></div>
           <p><%= yield %></p>
         </div>
        </div>
