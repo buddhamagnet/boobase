@@ -25,7 +25,7 @@
 	     var marker<%= i %> = new GMarker(point);
 		 map<%= map %>.addOverlay(marker<%= i %>);
 		 GEvent.addListener(marker<%= i %>, "click", function() {
-		  marker<%= i %>.openInfoWindowHtml("<p><strong><%= escape(item.title) %></strong><br /> a boo by <%= escape(item.author) %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
+		  marker<%= i %>.openInfoWindowHtml("<p><strong><%= item.title.gsub(/\"/, '') %></strong><br /> a boo by <%= item.author.gsub(/\"/, '') %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
 		});
 	    <% end %>
 	    <% i = i + 1 %>
