@@ -7,12 +7,12 @@ require 'uri'
 configure do
   set :views, File.dirname(__FILE__) + '/templates'
   set :audioboo_url, 'http://audioboo.fm.'
-  set :recent_url, 'http://audioboo.fm/boos.rss'
-  set :featured_url, 'http://audioboo.fm/boos/featured.rss'
-  set :popular_url, 'http://audioboo.fm/boos/popular.rss'
+  set :recent_url, 'http://audioboo.fm/boos.atom'
+  set :featured_url, 'http://audioboo.fm/boos/featured.atom'
+  set :popular_url, 'http://audioboo.fm/boos/popular.atom'
   set :tag_url, 'http://audioboo.fm/tag/'
-  set :default_url, 'http://audioboo.fm/tag/boobase.rss'
-  set :notfound_url, 'http://audioboo.fm/tag/booboo.rss'
+  set :default_url, 'http://audioboo.fm/tag/boobase.atom'
+  set :notfound_url, 'http://audioboo.fm/tag/booboo.atom'
   set :year, Time.now.year
   set :version, '2.4.0'
 end
@@ -20,19 +20,16 @@ end
 configure :production do
   set :title, 'boobase'
   set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxRDvOLbrWiHJ3CicabozJttxm0fcRSHTAN9PKMpSmb-x2_M7kgXsE2-3w'
-  set :env, 'production'
 end
 
 configure :test do
   set :title, 'boostage'
   set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxRPbVWv-urirlRr1aZdrBxQATLMMxRdGUaA96cxmpl6IYSp25QzK57VRw'
-  set :env, 'test'
 end
 
 configure :development do
   set :title, 'boodev'
   set :api_key, FALSE
-  set :env, 'development'
 end
 
 before do
@@ -40,7 +37,6 @@ before do
   @title = options.title
   @api_key = options.api_key
   @version = options.version
-  @env = options.env
 end
 
 not_found do
@@ -68,18 +64,18 @@ get "/popular" do
 end
 
 get "/:tag" do
-  @feed = prep_feed(options.tag_url + params[:tag] + '.rss')
+  @feed = prep_feed(options.tag_url + params[:tag] + '.atom')
   erb :index
 end
 
 get "/bigscreen/:tag" do
-  @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.rss')
+  @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.atom')
   @fullscreen = TRUE
   erb :index
 end
 
 post "/" do
-  @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.rss')
+  @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.atom')
   erb :index
 end
 
@@ -97,6 +93,7 @@ helpers do
     def get_feed(url)
       geotagged_boos = []
       Feedzirra::Feed.add_common_feed_entry_element("georss:point", :as => :location)
+      Feedzirra::Feed.add_common_feed_entry_element("itunes:keywords", :as => :tags)
       feed = Feedzirra::Feed.fetch_and_parse(url)
       unless feed.entries.empty?
         for item in feed.entries

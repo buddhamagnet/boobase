@@ -9,8 +9,10 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/js/boobase.js"></script>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= @api_key %>" type="text/javascript"></script>
+  <script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=YD-eQRpTl0_JX2E95l_xAFs5UwZUlNQhhn7lj1H"></script>
   <script type="text/javascript">
   function initialize() {
+	
     if (GBrowserIsCompatible()) {
 	<% i = 0; mag = 15 %>
 	  <% 1.upto(3) do |map| %>
@@ -28,7 +30,7 @@
 	     var marker<%= i %> = new GMarker(point, markerOptions);
 		 map<%= map %>.addOverlay(marker<%= i %>);
 		 GEvent.addListener(marker<%= i %>, "click", function() {
-		  marker<%= i %>.openInfoWindowHtml("<p><strong><%= item.title.gsub(/\"/, '') %></strong><br /> a boo by <%= item.author.gsub(/\"/, '') %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
+		  marker<%= i %>.openInfoWindowHtml("<p><strong><%= item.title.gsub(/\"/, '') %></strong><br /> a boo by <%= item.author.gsub(/\"/, '') %><br /><span style='font-size: 0.8em;'>recorded <%= item.published %><br /><strong>tags: </strong><%= item.tags %></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= item.url %>.mp3&amp;mp3Author=<%= item.author %>' /></object><br /><br />");
 		});
 	    <% end %>
 	    <% i = i + 1;l = l + 1 %>
