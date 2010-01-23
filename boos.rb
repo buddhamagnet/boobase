@@ -20,16 +20,19 @@ end
 configure :production do
   set :title, 'boobase'
   set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxRDvOLbrWiHJ3CicabozJttxm0fcRSHTAN9PKMpSmb-x2_M7kgXsE2-3w'
+  set :env, 'production'
 end
 
 configure :test do
   set :title, 'boostage'
   set :api_key, 'ABQIAAAA2VaAko7JciZpUriPsbz9vxRPbVWv-urirlRr1aZdrBxQATLMMxRdGUaA96cxmpl6IYSp25QzK57VRw'
+  set :env, 'test'
 end
 
 configure :development do
   set :title, 'boodev'
   set :api_key, FALSE
+  set :env, 'development'
 end
 
 before do
@@ -37,6 +40,7 @@ before do
   @title = options.title
   @api_key = options.api_key
   @version = options.version
+  @env = options.env
 end
 
 not_found do
