@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'feedzirra'
 require 'erb'
+require 'uri'
 
 configure do
   set :views, File.dirname(__FILE__) + '/templates'
@@ -68,13 +69,13 @@ get "/:tag" do
 end
 
 get "/bigscreen/:tag" do
-  @feed = prep_feed(options.tag_url + params[:tag] + '.rss')
+  @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.rss')
   @fullscreen = TRUE
   erb :index
 end
 
 post "/" do
-  @feed = prep_feed(options.tag_url + params[:tag] + '.rss')
+  @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.rss')
   erb :index
 end
 
