@@ -16,7 +16,7 @@
 	  <% 1.upto(3) do |map| %>
 	  	
 	  var map<%= map %> = new GMap2(document.getElementById("map<%= map %>"));
-      map<%= map %>.setCenter(new GLatLng(<%= @feed.entries.last.location.to_s.split(' ')[0]%>, <%= @feed.entries.last.location.to_s.split(' ')[1] %>), <%= mag %>);
+      map<%= map %>.setCenter(new GLatLng(<%= @feed.entries[0].location.to_s.split(' ')[0]%>, <%= @feed.entries[0].location.to_s.split(' ')[1] %>), <%= mag %>);
       map<%= map %>.setUIToDefault();
       <% l = 1 %>
       <% for item in @feed.entries %>
@@ -68,7 +68,7 @@
 				<param name="allowFullScreen" value="false" />
 				<param name="allowScriptAccess" value="always" />
 				<param name="salign" value="TL" />
-				<param name="FlashVars" value="size=playlist&amp;playerWidth=250&amp;playerHeight=300&amp;rssURL=http://audioboo.fm/tag/<%= params[:tag] || 'boobase' %>.atom" /> 
+				<param name="FlashVars" value="size=playlist&amp;playerWidth=250&amp;playerHeight=300&amp;rssURL=<%= params[:embed_url] %>" /> 
 		     </object>
             </ul>
           </li>
@@ -121,6 +121,7 @@
 		  maps at various zoom levels. To turn the maps on and off, simply hit the toggle link above each one. All boos, including ones that
 		  have not been geo-tagged, will be available in the embedded player to the right, and we've decided to throw in a real-time Twitter
 		  feed for good measure. <a href="http://twitter.com/boobase" target="_blank">Follow us</a>!</p>
+		  <p><a href="/boobase">boobase news</a> | <a href="/recent">recent boos</a> | <a href="/featured">featured boos</a> | <a href="/popular">popular boos</a></p>
 		  <h2 id="toggle_map">toggle local map</h2>
 		  <div id="map1" style="width: 700px;height: 600px;"></div>
 		  <h2 id="toggle_global_map">toggle national map</h2>
