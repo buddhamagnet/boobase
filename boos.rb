@@ -9,7 +9,7 @@ configure do
   set :tag_url, 'http://audioboo.fm/tag/'
   set :notfound_url, 'http://audioboo.fm/tag/booboo'
   set :year, Time.now.year
-  set :version, '2.1.0'
+  set :version, '2.2.0'
 end
 
 configure :production do
