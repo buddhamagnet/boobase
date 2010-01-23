@@ -44,7 +44,7 @@
             <h3>SEARCH BY TAG</h3>
             <ul class="links">
               <li>
-	            <form action="/tag" method="POST">
+	            <form action="/" method="POST">
 		          <input type="text" name="tag" id="tag" />
 		          <input type="submit" value="GO FIND EM!" />
 		        </form>
@@ -114,10 +114,10 @@
       <div id="content">
         <div id="header">
 	      <h1>Welcome to <%= @title %></h1>
-	      <p>This is boobase version 2.0 beta. Search by tag and we'll plot matching boos on the local, national and global maps below (use the
-		  toggle links to turn them on and off). Any boos that haven't been geotagged will appear in the player to the right, and just for good
-		  measure we'll throw in some live tweets hashtagged with the same tag under that. This is the first version, so bear with us and feel
-		  free to report bugs or request features - email buddhamagnet at gmail dot com. More coming soon!</p>
+	      <p>Welcome to boobase version <%= @version %> beta. Boobase is designed to be a lightweight tool for plotting tagged audioboos on
+		  maps at various zoom levels. To turn the maps on and off, simply hit the toggle link above each one. All boos, including ones that
+		  have not been geo-tagged, will be available in the embedded player to the right, and we've decided to throw in a real-time Twitter
+		  feed for good measure. <a href="http://twitter.com/boobase" target="_blank">Follow us</a>!</p>
 		  <h2 id="toggle_map">toggle local map</h2>
 		  <div id="map1" style="width: 700px;height: 600px;"></div>
 		  <h2 id="toggle_global_map">toggle national map</h2>

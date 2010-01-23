@@ -48,7 +48,7 @@ get "/tag/:tag" do
   erb :feed
 end
 
-post "/tag" do
+post "/" do
   @feed = prep_feed(params[:tag])
   erb :feed
 end
