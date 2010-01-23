@@ -3,10 +3,14 @@ require 'sinatra'
 require 'feedzirra'
 require 'erb'
 
-set :views, File.dirname(__FILE__) + '/templates'
-set :default_url, 'http://audioboo.fm/tag/boobase'
-set :tag_url, 'http://audioboo.fm/tag/'
-set :notfound_url, 'http://audioboo.fm/tag/booboo'
+configure do
+  set :views, File.dirname(__FILE__) + '/templates'
+  set :default_url, 'http://audioboo.fm/tag/boobase'
+  set :tag_url, 'http://audioboo.fm/tag/'
+  set :notfound_url, 'http://audioboo.fm/tag/booboo'
+  set :year, Time.now.year
+  set :version, '2.0.2'
+end
 
 configure :production do
   set :title, 'boobase'
@@ -23,10 +27,10 @@ configure :development do
 end
 
 before do
-  @year = Time.now.year
+  @year = options.year
   @title = options.title
   @api_key = options.api_key
-  @version = '2.0.1'
+  @version = options.version
 end
 
 not_found do
@@ -39,35 +43,35 @@ get "/" do
 end
 
 get "/tag/:tag" do
-  @feed = get_feed(options.tag_url + params[:tag])
-  if !@feed
-    params[:tag] = 'boobase'
-    @feed = get_feed(options.notfound_url)
-  end
+  @feed = prep_feed(params[:tag])
   erb :feed
 end
 
 post "/tag" do
-  @feed = get_feed(options.tag_url + params[:tag])
-  if !@feed
-    params[:tag] = 'boobase'
-    @feed = get_feed(options.notfound_url)
-  end  
+  @feed = prep_feed(params[:tag])
   erb :feed
 end
 
 helpers do
+  
+    def prep_feed(tag)
+      feed = get_feed(options.tag_url + tag)
+      if feed.empty?
+        params[:tag] = 'boonotfound'
+        feed = get_feed(options.notfound_url)
+      end
+      feed
+    end
     
     def get_feed(feed)
       geotagged_boos = []
       Feedzirra::Feed.add_common_feed_entry_element("georss:point", :as => :location)
-        feed = Feedzirra::Feed.fetch_and_parse(feed + '.rss')
-        if feed.entries.empty?
-          return FALSE
-        end
-      for item in feed.entries
-        unless !item.location
-          geotagged_boos << item
+      feed = Feedzirra::Feed.fetch_and_parse(feed + '.rss')
+      unless feed.entries.empty?
+        for item in feed.entries
+          unless !item.location
+            geotagged_boos << item
+          end
         end
       end
       geotagged_boos
