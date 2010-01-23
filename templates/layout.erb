@@ -123,7 +123,7 @@
 		  have not been geo-tagged, will be available in the embedded player to the right, and we've decided to throw in a real-time Twitter
 		  feed for good measure. <a href="http://twitter.com/boobase" target="_blank">Follow us</a>!</p>
 		  <p><a href="/boobase">boobase news</a> | <a href="/recent">recent boos</a> | <a href="/featured">featured boos</a> | <a href="/popular">popular boos</a></p>
-		  <p><a id="toggle_map">toggle local map</a> | <a href="/bigscreen/<%= params[:tag] %>">full screen</a> | embed <input type="text" value="<iframe src='http://boobase.com/bigscreen/<%= params[:tag] %>' height=400 width=400></iframe>" /></p>
+		  <p><a id="toggle_map">toggle local map</a><% if params[:tag] %> | <a href="/bigscreen/<%= params[:tag] %>">full screen</a> | embed <input type="text" value="<iframe src='http://boobase.com/bigscreen/<%= params[:tag] %>' height=400 width=400></iframe>" /><% end %></p>
 		  <div id="map1" style="width: 700px;height: 600px;"></div>
 		  <p><a id="toggle_global_map">toggle national map</a>
 		  <div id="map2" style="width: 700px;height: 600px;"></div>
