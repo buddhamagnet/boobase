@@ -13,7 +13,7 @@ configure do
   set :default_url, 'http://audioboo.fm/tag/boobase.rss'
   set :notfound_url, 'http://audioboo.fm/tag/booboo.rss'
   set :year, Time.now.year
-  set :version, '2.2.0'
+  set :version, '2.3.0'
 end
 
 configure :production do
