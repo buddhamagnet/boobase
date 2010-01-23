@@ -58,6 +58,7 @@
           <li>
             <h3>BOOBASE RADIO</h3>
             <ul class="links">
+	         <div id="player">
              <object width="250" height="300" data="http://boos.audioboo.fm/swf/playlist_player_glastonbury.swf" type="application/x-shockwave-flash">
 				<param name="movie" value="http://boos.audioboo.fm/swf/playlist_player_glastonbury.swf" />
 				<param name="wmode" value="window" />
@@ -71,6 +72,7 @@
 				<param name="salign" value="TL" />
 				<param name="FlashVars" value="size=playlist&amp;playerWidth=250&amp;playerHeight=300&amp;rssURL=<%= params[:embed_url] %>" /> 
 		     </object>
+		     </div>
             </ul>
           </li>
           <h3>TWITTER</h3>
@@ -114,14 +116,14 @@
 	      <h1>Welcome to <%= @title %></h1>
 	      <p>Welcome to boobase version <%= @version %> beta. Boobase is designed to be a lightweight tool for plotting tagged audioboos on
 		  maps at various zoom levels. To turn the maps on and off, simply hit the toggle link above each one. All boos, including ones that
-		  have not been geo-tagged, will be available in the embedded player to the right, and we've decided to throw in a real-time Twitter
+		  have not been geo-tagged, will be available in the <span id="highlight_player">embedded player to the right</span>, and we've decided to throw in a real-time Twitter
 		  feed for good measure. <a href="http://twitter.com/boobase" target="_blank">Follow us</a>!</p>
 		  <p><a href="/boobase">boobase news</a> | <a href="/recent">recent boos</a> | <a href="/featured">featured boos</a> | <a href="/popular">popular boos</a></p>
-		  <p><a id="toggle_map">toggle local map</a><% if params[:tag] %> | <a href="/bigscreen/<%= params[:tag] %>">full screen</a> | embed <input type="text" value="<iframe src='http://boobase.com/bigscreen/<%= params[:tag] %>' height=400 width=400></iframe>" /><% end %></p>
+		  <p><a id="toggle_map1">toggle local map</a><% if params[:tag] %> | <a href="/bigscreen/<%= params[:tag] %>">full screen</a> | embed <input type="text" value="<iframe src='http://boobase.com/bigscreen/<%= params[:tag] %>' height=400 width=400></iframe>" /><% end %></p>
 		  <div id="map1" style="width: 700px;height: 600px;"></div>
-		  <p><a id="toggle_global_map">toggle national map</a>
+		  <p><a id="toggle_map2">toggle national map</a>
 		  <div id="map2" style="width: 700px;height: 600px;"></div>
-		  <p><a id="toggle_world_map">toggle world map</a>
+		  <p><a id="toggle_map3">toggle world map</a>
 		  <div id="map3" style="width: 700px;height: 300px;"></div>
           <p><%= yield %></p>
         </div>
