@@ -40,7 +40,7 @@ end
 
 get "/tag/:tag" do
   @feed = get_feed(options.tag_url + params[:tag])
-  if @feed.empty?
+  if !@feed
     @feed = get_feed(options.notfound_url)
   end
   erb :feed
@@ -48,7 +48,7 @@ end
 
 post "/tag" do
   @feed = get_feed(options.tag_url + params[:tag])
-  if @feed.empty?
+  if !@feed
     @feed = get_feed(options.notfound_url)
   end  
   erb :feed
@@ -60,6 +60,9 @@ helpers do
       geotagged_boos = []
       Feedzirra::Feed.add_common_feed_entry_element("georss:point", :as => :location)
         feed = Feedzirra::Feed.fetch_and_parse(feed + '.rss')
+        if feed.entries.empty?
+          return FALSE
+        end
       for item in feed.entries
         unless !item.location
           geotagged_boos << item
