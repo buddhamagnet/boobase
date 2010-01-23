@@ -13,7 +13,7 @@ configure do
   set :default_url, 'http://audioboo.fm/tag/boobase.rss'
   set :notfound_url, 'http://audioboo.fm/tag/booboo.rss'
   set :year, Time.now.year
-  set :version, '2.3.0'
+  set :version, '2.4.0'
 end
 
 configure :production do
@@ -64,6 +64,12 @@ end
 
 get "/:tag" do
   @feed = prep_feed(options.tag_url + params[:tag] + '.rss')
+  erb :index
+end
+
+get "/bigscreen/:tag" do
+  @feed = prep_feed(options.tag_url + params[:tag] + '.rss')
+  @fullscreen = TRUE
   erb :index
 end
 
