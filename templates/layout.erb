@@ -138,5 +138,16 @@
     <p><a style="margin-left: 10px;" href="http://boobase.com/<%= params[:tag] %>">back to boobase</a><p>
     <div id="map1" style="border-top: 2px solid #000;margin-top:20px;width: 100%;height: 800px;"></div>
     <% end %>
+    <% if 'production' == Sinatra::Application.environment %>
+    <script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-1031962-20");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+    <% end %>
   </body>
 </html>
