@@ -40,7 +40,9 @@
   </script>
   </head>
   <body onload="initialize()" onunload="GUnload()">
+	
 	<% unless @fullscreen %>
+    
     <div id="page">
       <div id="sidebar">
         <ul id="sidebar-items">  
@@ -130,20 +132,27 @@
        </div>
       <div id="footer">boobase version <%= @version %> &copy; <%= @year %> <a href="http://buddhamag.net" target="_blank"> buddhamagnet</a> - built on <a href="http://www.sinatrarb.com/" target="_blank">sinatra</a></div>
     </div>
+
     <% else %>
-    <p><a style="margin-left: 10px;" href="http://boobase.com/<%= params[:tag] %>">back to boobase</a><p>
-    <div id="map1" class="bigscreen"></div>
+    
+      <p><a style="margin-left: 10px;" href="http://boobase.com/<%= params[:tag] %>">back to boobase</a><p>
+      <div id="map1" class="bigscreen"></div>
+    
     <% end %>
-    <% if 'production' == Sinatra::Application.environment %>
-    <script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-1031962-20");
-	pageTracker._trackPageview();
-	} catch(err) {}</script>
+
+    <% if 'production' == @env %>
+    
+      <script type="text/javascript">
+	    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	  </script>
+	  <script type="text/javascript">
+	    try {
+	      var pageTracker = _gat._getTracker("UA-1031962-20");
+	      pageTracker._trackPageview();
+	    } catch(err) {}</script>
+    
     <% end %>
+  
   </body>
 </html>
