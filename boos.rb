@@ -41,6 +41,7 @@ end
 get "/tag/:tag" do
   @feed = get_feed(options.tag_url + params[:tag])
   if !@feed
+    params[:tag] = 'boobase'
     @feed = get_feed(options.notfound_url)
   end
   erb :feed
@@ -49,6 +50,7 @@ end
 post "/tag" do
   @feed = get_feed(options.tag_url + params[:tag])
   if !@feed
+    params[:tag] = 'boobase'
     @feed = get_feed(options.notfound_url)
   end  
   erb :feed
