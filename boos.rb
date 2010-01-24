@@ -64,7 +64,7 @@ get "/popular" do
 end
 
 get "/:tag" do
-  @feed = prep_feed(options.tag_url + params[:tag] + '.atom')
+  @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.atom')
   erb :index
 end
 
