@@ -87,6 +87,7 @@ helpers do
         params[:tag] = 'boonotfound'
         feed = get_feed(options.notfound_url)
       end
+      params[:embed_url] = url
       feed
     end
     
@@ -102,7 +103,6 @@ helpers do
           end
         end
       end
-      params[:embed_url] = url.sub(/rss/, 'atom')
       geotagged_boos
     end
   
