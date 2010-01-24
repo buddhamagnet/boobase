@@ -14,7 +14,7 @@ configure do
   set :default_url, 'http://audioboo.fm/tag/boobase.atom'
   set :notfound_url, 'http://audioboo.fm/tag/booboo.atom'
   set :year, Time.now.year
-  set :version, '2.4.0'
+  set :version, '2.4.1'
 end
 
 configure :production do
@@ -93,8 +93,10 @@ helpers do
     
     def get_feed(url)
       geotagged_boos = []
-      Feedzirra::Feed.add_common_feed_entry_element("georss:point", :as => :location)
-      Feedzirra::Feed.add_common_feed_entry_element("itunes:keywords", :as => :tags)
+      elements = {'georss:point' => :location, 'itunes:keywords' => :tags}
+      elements.each do |key, value|
+        Feedzirra::Feed.add_common_feed_entry_element(key, :as => value)
+      end
       feed = Feedzirra::Feed.fetch_and_parse(url)
       unless feed.entries.empty?
         for item in feed.entries
