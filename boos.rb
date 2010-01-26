@@ -14,7 +14,7 @@ configure do
   set :default_url, 'http://audioboo.fm/tag/boobase.atom'
   set :notfound_url, 'http://audioboo.fm/tag/booboo.atom'
   set :year, Time.now.year
-  set :version, '2.4.1'
+  set :version, '2.4.2'
 end
 
 configure :production do
