@@ -1,8 +1,29 @@
 require 'rubygems'
 require 'sinatra'
 require 'feedzirra'
+require 'nokogiri'
 require 'erb'
 require 'uri'
+require 'open-uri'
+
+module Sinatra::Partials
+  def partial(template, *args)
+    template_array = template.to_s.split('/')
+    template = template_array[0..-2].join('/') + "/_#{template_array[-1]}"
+    options = args.last.is_a?(Hash) ? args.pop : {}
+    options.merge!(:layout => false)
+    if collection = options.delete(:collection) then
+      collection.inject([]) do |buffer, member|
+        buffer << erb(:"#{template}", options.merge(:layout =>
+        false, :locals => {template_array[-1].to_sym => member}))
+      end.join("\n")
+    else
+      erb(:"#{template}", options)
+    end
+  end
+end
+
+include Sinatra::Partials
 
 configure do
   set :views, File.dirname(__FILE__) + '/templates'
@@ -13,6 +34,8 @@ configure do
   set :tag_url, 'http://audioboo.fm/tag/'
   set :default_url, 'http://audioboo.fm/tag/boobase.atom'
   set :notfound_url, 'http://audioboo.fm/tag/booboo.atom'
+  set :user_url, 'http://audioboo.fm/users/'
+  set :api_get_userid, 'http://api.audioboo.fm/users.xml?find[username]='
   set :year, Time.now.year
   set :version, '2.4.2'
 end
@@ -74,6 +97,11 @@ get "/bigscreen/:tag" do
   erb :index
 end
 
+get "/get_user/:user" do
+  @feed = prep_feed(options.user_url + get_user(params[:user]) + '/boos.atom')
+  erb :index
+end
+
 post "/" do
   @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.atom')
   erb :index
@@ -106,6 +134,11 @@ helpers do
         end
       end
       geotagged_boos
+    end
+    
+    def get_user(user)
+      userid = Nokogiri::XML(open(options.api_get_userid + user)).xpath('//id').to_s
+      halt userid
     end
   
 end
