@@ -137,7 +137,7 @@ helpers do
     end
     
     def get_user(user)
-      userid = Nokogiri::XML(open(options.api_get_userid + user)).xpath('//id').to_s
+      userid = Nokogiri::XML(open(options.api_get_userid + user)).xpath('//id').text
     end
   
 end
