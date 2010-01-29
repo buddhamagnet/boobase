@@ -37,7 +37,7 @@ configure do
   set :user_url, 'http://audioboo.fm/users/'
   set :api_get_userid, 'http://api.audioboo.fm/users.xml?find[username]='
   set :year, Time.now.year
-  set :version, '2.4.2'
+  set :version, '2.5.0'
 end
 
 configure :production do
@@ -99,6 +99,7 @@ end
 
 get "/get_user/:user" do
   @feed = prep_feed(options.user_url + get_user(params[:user]) + '/boos.atom')
+  params[:tag] = params[:user]
   erb :index
 end
 
