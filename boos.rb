@@ -97,7 +97,7 @@ get "/bigscreen/:tag" do
   erb :index
 end
 
-get "/get_user/:user" do
+get "/user/:user" do
   @feed = prep_feed(options.user_url + get_user(params[:user]) + '/boos.atom')
   params[:tag] = params[:user]
   erb :index
