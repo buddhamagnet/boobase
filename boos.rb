@@ -103,6 +103,12 @@ get "/user/:user" do
   erb :index
 end
 
+post "/user" do
+  @feed = prep_feed(options.user_url + get_user(params[:user]) + '/boos.atom')
+  params[:tag] = params[:user]
+  erb :index
+end
+
 post "/" do
   @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.atom')
   erb :index
