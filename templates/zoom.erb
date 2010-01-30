@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>boobase is zoomed in on <%= @author %></title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css" /> 
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/js/boobase.js"></script>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= @api_key %>" type="text/javascript"></script>
+  <script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=YD-eQRpTl0_JX2E95l_xAFs5UwZUlNQhhn7lj1H"></script>
+<script type="text/javascript">
+  function initialize() {
+
+    if (GBrowserIsCompatible()) {
+
+	  var map = new GMap2(document.getElementById("zoom_map"));
+      map.setCenter(new GLatLng(<%= @longitude %>, <%= @latitude %>), 12);
+      map.setUIToDefault();
+		var BooIcon = new GIcon(G_DEFAULT_ICON);
+		BooIcon.image = "/images/icons/hot.png";
+		markerOptions = { icon:BooIcon };
+	     var point = new GLatLng(<%= @longitude %>, <%= @latitude %>);
+	     var marker = new GMarker(point, markerOptions);
+		 map.addOverlay(marker);
+		 GEvent.addListener(marker, "mouseover", function() {
+		  marker.openInfoWindowHtml("<p><strong><%= @title.gsub(/\"/, '') %></strong><br /> a boo by <a href='/user/<%= @author.gsub(/\"/, '') %>'><%= @author.gsub(/\"/, '') %></a><br /><span style='font-size: 0.8em;'>recorded <%= @published %><br /></span></p><object data='http://boos.audioboo.fm/swf/default_player.swf' height='60' id='iefix2' type='application/x-shockwave-flash' width='200'><param name='movie' value='http://boos.audioboo.fm/swf/default_player.swf' /><param name='scale' value='noscale' /><param name='salign' value='lt' /><param name='bgColor' value='#FFFFFF' /><param name='allowScriptAccess' value='always' /><param name='wmode' value='opaque' /><param name='FlashVars' value='mp3=<%= @url %>.mp3&amp;mp3Author=<%= @author %>' /></object><br /><br />");
+		 });
+      }
+  }
+  </script>
+  </head>
+  <body onload="initialize()" onunload="GUnload()">
+  	<p><a style="margin-left: 10px;" href="/">back to boobase</a><p>
+    <div id="zoom_map" class="bigscreen"></div>
+  </body>
+</html>

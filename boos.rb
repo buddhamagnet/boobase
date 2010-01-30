@@ -37,7 +37,7 @@ configure do
   set :user_url, 'http://audioboo.fm/users/'
   set :api_get_userid, 'http://api.audioboo.fm/users.xml?find[username]='
   set :year, Time.now.year
-  set :version, '2.5.0'
+  set :version, '2.6.0'
 end
 
 configure :production do
@@ -107,6 +107,16 @@ post "/user" do
   @feed = prep_feed(options.user_url + get_user(params[:user]) + '/boos.atom')
   params[:tag] = params[:user]
   erb :index
+end
+
+post "/zoom" do
+  @longitude = params[:longitude]
+  @latitude = params[:latitude]
+  @title = params[:title]
+  @author = params[:author]
+  @published = params[:published]
+  @url = params[:url]
+  erb :zoom, :layout => false
 end
 
 post "/" do
