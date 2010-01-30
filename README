@@ -1,0 +1,4 @@
+Boobase is a lightweight tool built on Sinatra that plots sound files uploaded
+using the Audioboo service on a series of maps.
+
+The tool allows searching by tag or user with more functionality to come.
