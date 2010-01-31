@@ -37,7 +37,7 @@ configure do
   set :user_url, 'http://audioboo.fm/users/'
   set :api_get_userid, 'http://api.audioboo.fm/users.xml?find[username]='
   set :year, Time.now.year
-  set :version, '2.6.0'
+  set :version, '2.6.1'
 end
 
 configure :production do
@@ -68,31 +68,37 @@ end
 
 get "/" do
   @feed = prep_feed(options.default_url)
+  @mode = 'index'
   erb :index
 end
 
 get "/recent" do
   @feed = prep_feed(options.recent_url)
+  @mode = 'recent'
   erb :index
 end 
 
 get "/featured" do
   @feed = prep_feed(options.featured_url)
+  @mode = 'featured'
   erb :index
 end
 
 get "/popular" do
   @feed = prep_feed(options.popular_url)
+  @mode = 'popular'
   erb :index
 end
 
 get "/:tag" do
   @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.atom')
+  @mode = 'tag'
   erb :index
 end
 
 get "/bigscreen/:tag" do
   @feed = prep_feed(options.tag_url + URI.escape(params[:tag]) + '.atom')
+  @mode = 'tag'
   @fullscreen = TRUE
   erb :index
 end
@@ -100,11 +106,13 @@ end
 get "/user/:user" do
   @feed = prep_feed(options.user_url + get_user(params[:user]) + '/boos.atom')
   params[:tag] = params[:user]
+  @mode = 'user'
   erb :index
 end
 
 post "/user" do
   @feed = prep_feed(options.user_url + get_user(params[:user]) + '/boos.atom')
+  @mode = 'user'
   params[:tag] = params[:user]
   erb :index
 end
@@ -116,6 +124,7 @@ post "/zoom" do
   @author = params[:author]
   @published = params[:published]
   @url = params[:url]
+  @mode = 'zoom'
   erb :zoom, :layout => false
 end
 

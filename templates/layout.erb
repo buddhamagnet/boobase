@@ -133,7 +133,7 @@
 		  maps at various zoom levels. To turn the maps on and off, simply hit the toggle link above each one. All boos, including ones that
 		  have not been geo-tagged, will be available in the <span id="highlight_player">embedded player to the right</span>, and we've decided to throw in a real-time Twitter
 		  feed for good measure. <a href="http://twitter.com/boobase" target="_blank">Follow us</a>!</p>
-		  <p><a href="/boobase">boobase news</a> | <a href="/recent">recent boos</a> | <a href="/featured">featured boos</a> | <a href="/popular">popular boos</a></p>
+		  <p><% if 'user' == @mode %><a href="http://audioboo.fm/profile/<%= params[:tag] %>" target="_blank">visit <%= params[:tag] %> at audioboo</a> | <% end %><a href="/boobase">boobase news</a> | <a href="/recent">recent boos</a> | <a href="/featured">featured boos</a> | <a href="/popular">popular boos</a></p>
 		  <p><a id="toggle_map1">toggle local map</a><% if params[:tag] %> | <a href="/bigscreen/<%= params[:tag] %>">full screen</a> | embed <input type="text" value="<iframe src='http://boobase.com/bigscreen/<%= params[:tag] %>' height=400 width=400></iframe>" /><% end %></p>
 		  <div id="map1" style="width: 700px;height: 600px;"></div>
 		  <p><a id="toggle_map2">toggle national map</a>
