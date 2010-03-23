@@ -19,7 +19,7 @@ configure do
   set :user_url, 'http://audioboo.fm/users/'
   set :api_get_userid, 'http://api.audioboo.fm/users.xml?find[username]='
   set :year, Time.now.year
-  set :version, '2.6.1'
+  set :version, '2.7.0'
 end
 
 configure :production do
