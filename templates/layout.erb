@@ -12,6 +12,9 @@
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= @api_key %>" type="text/javascript"></script>
   <script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=YD-eQRpTl0_JX2E95l_xAFs5UwZUlNQhhn7lj1H"></script>
   <script type="text/javascript">
+    window.audioboo = { user_tag_token: "boobase" };
+  </script>
+  <script type="text/javascript">
   function initialize() {
 	
     if (GBrowserIsCompatible()) {
@@ -70,6 +73,10 @@
 		        </form>
 		      </li>
             </ul>
+          </li>
+		  <li>
+            <h3>RECORD ON BOOBASE</h3>
+            <script src="http://audioboo.fm/javascripts/popup_button.js"></script>
           </li>
           <li>
             <h3>BOOBASE RADIO</h3>
