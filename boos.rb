@@ -10,11 +10,11 @@ require 'open-uri'
 configure do
   set :views, File.dirname(__FILE__) + '/templates'
   set :audioboo_url, 'http://audioboo.fm.'
+  set :magic_url, 'http://audioboo.fm/users/229/tags/78-boobase.atom'
   set :recent_url, 'http://audioboo.fm/boos.atom'
   set :featured_url, 'http://audioboo.fm/boos/featured.atom'
   set :popular_url, 'http://audioboo.fm/boos/popular.atom'
   set :tag_url, 'http://audioboo.fm/tag/'
-  set :default_url, 'http://audioboo.fm/tag/boobase.atom'
   set :notfound_url, 'http://audioboo.fm/tag/booboo.atom'
   set :user_url, 'http://audioboo.fm/users/'
   set :api_get_userid, 'http://api.audioboo.fm/users.xml?find[username]='
@@ -58,7 +58,7 @@ get '/css/sassed.css' do
 end
 
 get "/" do
-  @feed = prep_feed(options.default_url)
+  @feed = prep_feed(options.magic_url)
   @mode = 'index'
   erb :index
 end
