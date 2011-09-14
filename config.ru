@@ -1,2 +1,2 @@
-require 'boos'
+require 'boo'
 run Sinatra::Application
